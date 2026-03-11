@@ -41,7 +41,16 @@ def add():
 
 def sell():
    name = input("name of product to buy: ")
-   quantity = int(input("quantity of product to buy: "))
+   while isai:
+        try:
+            quantity = int(input("quantity of product: "))
+            if quantity <= 0:
+                print("quantity must be greater than 0")
+            else:
+                break
+        except ValueError:
+            print("enter a valid number")
+       
    for product in inventory:
         if product["name"] == name:
 
