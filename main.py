@@ -1,3 +1,4 @@
+isai = True
 inventory = []
 sales_history=[]
 def add():
@@ -7,11 +8,25 @@ def add():
          print("already registed")
          return
     print("")
-    price = float(input("price of the product: "))
-    print("")
-    quantity = int(input("quantity of product: "))
-    print("")
-    validation(name,price,quantity)
+    while isai:
+        try:
+            price = float(input("price of the product: "))
+            if price <= 0:
+                print("price must be greater than 0")
+            else:
+                break
+
+        except ValueError:
+            print("enter a valid number")
+    while isai:
+        try:
+            quantity = int(input("quantity of product: "))
+            if quantity <= 0:
+                print("quantity must be greater than 0")
+            else:
+                break
+        except ValueError:
+            print("enter a valid number")
 
     product={
         "name": name,
@@ -24,18 +39,17 @@ def add():
     print("registred correctly")
     return
 
-def sell(name,price,quantity):
-   validation(name,price,quantity)
-   name_of_product = input("name of product to buy: ")
+def sell():
+   name = input("name of product to buy: ")
    quantity = int(input("quantity of product to buy: "))
    for product in inventory:
-        if product["name"] == name_of_product:
+        if product["name"] == name:
 
             if product["quantity"] >= quantity:
                 total = product["price"] * quantity
                 product["quantity"] -= quantity
                 sale = {
-                    "name": name_of_product,
+                    "name": name,
                     "quantity": quantity,
                     "total": total
                 }
@@ -62,6 +76,8 @@ def record():
             print("quantity:", sale["quantity"])
             print("total:", sale["total"])
             print("------")
+
+            
 def total_sales():
     total = 0
 
@@ -70,46 +86,48 @@ def total_sales():
 
     print("total money from sales:", total)
 
-def validation(name,price,quantity):
-    try:
-        if name.isdigit:
-            print("only letter")
-        else:
-            return None
-        if price <= 0 or quantity <= 0:
-            print("error. not enter negative number")
-            return None
-    except ValueError:
-        print("error. dont enter a character")
+
+def view_inventory():
+
+    if len(inventory) == 0:
+        print("inventory empty")
+        return
+
+    for product in inventory:
+        print("Name:", product["name"])
+        print("Price:", product["price"])
+        print("Quantity:", product["quantity"])
+        print("----------------")
+
 
 #menu
-   
-while True:
+while isai:
+   print("")
+   print("1. add product")
+   print("2. sell product")
+   print("3. view history")
+   print("4 sales history")
+   print("5. view inventory")
+   print("6. exit")
+   print("")
 
-    print("")
-    print("1. add product")
-    print("2. sell product")
-    print("3. view history")
-    print("4 sales history")
-    print("5. exit")
-    print("")
+   option = input("choose an option: ")
 
-    option = input("choose an option: ")
-
-    if option == "1":
+   if option == "1":
         add()
 
-    elif option == "2":
+   elif option == "2":
         sell()
 
-    elif option == "3":
+   elif option == "3":
         record()
-    elif option == "4":
+   elif option == "4":
         total_sales()
 
-    elif option == "5":
-        print("goodbye")
-        break
-
-    else:
+   elif option == "5":
+       view_inventory()
+   elif option == "6":
+        print("goodbye")    
+        isai = False
+   else:
         print("invalid option")
