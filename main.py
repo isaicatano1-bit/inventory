@@ -1,6 +1,7 @@
 isai = True
 inventory = []
 sales_history=[]
+#add products
 def add():
     name = input("name of product: ")
     for product in inventory:
@@ -38,7 +39,7 @@ def add():
 
     print("registred correctly")
     return
-
+#funcion of sells
 def sell():
    name = input("name of product to buy: ")
    while isai:
@@ -76,6 +77,7 @@ def sell():
 
    print("product not found")
 
+#explain sells
 def record():
     if len(sales_history) == 0:
         print("no sales yet")
@@ -86,7 +88,7 @@ def record():
             print("total:", sale["total"])
             print("------")
 
-            
+
 def total_sales():
     total = 0
 
